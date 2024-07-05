@@ -25,6 +25,8 @@ if(!isset($admin_id)){
 
    <!-- custom admin css file link  -->
    <link rel="stylesheet" href="css/admin_style.css">
+   <!-- Chat CSS -->
+   <link rel="stylesheet" href="css/chat.css">
 
 </head>
 <body>
@@ -58,7 +60,7 @@ if(!isset($admin_id)){
             };
          ?>
          <h3>$<?php echo $total_completes; ?>/-</h3>
-         <p>completed paymets</p>
+         <p>completed payments</p>
       </div>
 
       <div class="box">
@@ -119,19 +121,10 @@ if(!isset($admin_id)){
 
 </section>
 
-
-
-
-
-
-
-
-
-
-
-
+<?php @include 'floating_button.php'; ?>
 
 <script src="js/admin_script.js"></script>
+<script src="js/chat.js"></script>
 
 </body>
 </html>

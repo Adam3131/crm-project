@@ -10,7 +10,7 @@
         <h3>Chat with us</h3>
         <span class="close-chatbox">&times;</span>
     </div>
-    <div class="chatbox-content">
+    <div class="chatbox-content" id="chatbox-content">
         <p>Welcome! How can we help you?</p>
     </div>
     <div class="chatbox-input">
