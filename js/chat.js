@@ -6,23 +6,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatInput = document.getElementById('chat-input');
     const chatboxContent = document.getElementById('chatbox-content');
 
+    const userId = "<?php echo json_encode($_SESSION['user_id'] ?? null); ?>";
+    const adminId = "<?php echo json_encode($_SESSION['admin_id'] ?? null); ?>";
+
     function fetchMessages() {
         fetch('fetch_messages.php')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 chatboxContent.innerHTML = '';
                 data.forEach(message => {
                     const chatBubble = document.createElement('div');
                     chatBubble.classList.add('chat-bubble');
                     if (message.sent) {
+                        // Message sent by the current user/admin
                         chatBubble.classList.add('sent-message');
+                        console.log('Message sent:', message.chat);
                     } else {
+                        // Message received by the current user/admin
                         chatBubble.classList.add('received-message');
+                        console.log('Message received:', message.chat);
                     }
                     chatBubble.textContent = message.chat;
                     chatboxContent.appendChild(chatBubble);
@@ -54,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     body: new URLSearchParams({
                         message: messageText,
-                        recipient_id: 10 // Assuming the recipient is always the admin with ID 10
+                        recipient_id: 10
                     })
                 })
                 .then(response => response.json())
@@ -66,6 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         chatboxContent.appendChild(chatBubble);
                         chatInput.value = '';
                         chatboxContent.scrollTop = chatboxContent.scrollHeight;
+
+                        console.log('Message sent:', data.message);
                     }
                 });
             }
@@ -77,4 +81,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-})
+});
